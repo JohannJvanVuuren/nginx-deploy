@@ -5,7 +5,7 @@ param sku string = 'B1'
 resource appServicePlan 'Microsoft.Web/serverfarms@2025-03-01' = {
   name: namePrefix
   location: location
-  kind: 'ubuntu'
+  kind: 'linux'
   sku: {
     name: sku
   }

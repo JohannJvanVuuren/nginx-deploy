@@ -31,7 +31,7 @@ module appPlanDeploy 'modules/servicePlan.bicep' = {
   }
 }
 
-module webappDeploy 'modules/webApp.bicep' = {
+module webApp 'modules/webApp.bicep' = {
   name: '${namePrefix}-webapp-module-${uniqueSuffix}'
   params: {
     namePrefix: '${namePrefix}-webapp-module-${uniqueSuffix}'
@@ -42,7 +42,7 @@ module webappDeploy 'modules/webApp.bicep' = {
   }
 }
 
-output siteUrl string = webappDeploy.outputs.siteUrl
+output siteUrl string = webApp.outputs.siteUrl
 
 
 
