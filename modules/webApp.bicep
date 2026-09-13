@@ -12,19 +12,7 @@ resource webApplication 'Microsoft.Web/sites@2024-11-01' = {
     siteConfig: {
       appSettings: [
         {
-          name: 'DOCKER_REGISTRY_SERVICE_URL'
-          value: 'https://index.docker.io'
-        }
-        {
-          name: 'DOCKER_REGISTRY_SERVER_USERNAME'
-          value: 'johann'
-        }
-        {
-          name: 'DOCKER_REGISTRY_SERVER_PASSWORD'
-          value: ''
-        }
-        {
-          name: 'WEBSITES_ENABLE_APP_SERVICE_STORAGE' 
+          name: 'WEBSITES_ENABLE_APP_SERVICE_STORAGE'
           value: 'false'
         }
       ]
@@ -33,4 +21,4 @@ resource webApplication 'Microsoft.Web/sites@2024-11-01' = {
   }
 }
 
-output siteUrl string = webApplication.properties.hostNames[0]
+output siteUrl string = webApplication.properties.defaultHostName
