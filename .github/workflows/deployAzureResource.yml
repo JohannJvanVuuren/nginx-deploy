@@ -1,0 +1,41 @@
+name: Deploy Azure Resource
+on:
+  push:
+    branches:
+      - main
+
+env:
+  LOCATION: southafricanorth
+  RESOURCE_GROUP: nginxDeploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Install/Upgrade Bicep
+        run: |
+          az bicep install
+          az bicep upgrade
+
+      - name: Create Resource Group
+        run: |
+          az group create --name ${{ env.RESOURCE_GROUP }} --location ${{ env.LOCATION }}
+
+      - name: Deploy the Bicep Script
+        uses: azure/arm-deploy@v2
+        with:
+          scope: resourcegroup
+          resourceGroupName: ${{ env.RESOURCE_GROUP }}
+          template: main.bicep
+
+      - name: Deployment Successful
+        run: |
+          echo "Bicep deployment completed successfully"
